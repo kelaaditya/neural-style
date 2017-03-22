@@ -25,3 +25,25 @@ def _conv_layer(input_layer, weights, bias):
     return(tf.nn.bias_add(conv_layer, bias))
 
 
+def _relu_layer(input_layer):
+    return(tf.nn.relu(input_layer))
+
+
+def _pool_layer(input_layer, pool_func='avg'):
+    '''pool_func has two options:
+    'avg': Average pooling
+    Else : Max pooling
+    '''
+    
+    if pool_func == 'avg':
+        return(tf.nn.avg_pool(input_layer,
+                              ksize=(1, 2, 2, 1),
+                              strides=(1, 2, 2, 1),
+                              padding='SAME')
+              )
+    else:
+        return(tf.nn.max_pool(input_layer,
+                              ksize=(1, 2, 2, 1),
+                              strides=(1, 2, 2, 1),
+                              padding='SAME')
+              )
