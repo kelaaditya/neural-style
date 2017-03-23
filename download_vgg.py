@@ -2,7 +2,7 @@ import os
 import sys
 import numpy as np
 import scipy.misc
-import urllib
+import urllib.request
 
 from PIL import Image, ImageOps
 
@@ -25,7 +25,9 @@ def download_vgg(link, file_name):
             if percent_size % 10 == 0:
                 sys.stdout.write(progress_string)
     
-    if os.path.exists(file_name) and os.stat(file_name).st_size == 534904783
+    if os.path.exists(file_name) and os.stat(file_name).st_size == 534904783:
         print('VGGNet ready')
     else:
         urllib.request.urlretrieve(link, file_name, report_hook)
+
+download_vgg(VGG, VGG_MODEL)
