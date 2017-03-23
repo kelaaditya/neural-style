@@ -71,11 +71,13 @@ def load_vgg(path, input_image, pooling_func='avg'):
     for i, layer in enumerate(VGG19_LAYERS):
         if layer[:4] == 'conv':
             weights, bias = vgg_layers[0][i][0][0][2][0]
+            bias = bias.reshape(bias.size)
             current_layer = _conv_layer(current_layer, weights, bias)
         elif layer[:4] == 'relu':
             current_layer = _relu_layer(current_layer)
         elif layer[:4] == 'pool':
-            current_layer = _pool_layer(current_layer, pool_func=pool)
+            current_layer = _pool_layer(current_layer, pool_func='avg')
         graph[layer] = current_layer
+    
     return(graph)
 
