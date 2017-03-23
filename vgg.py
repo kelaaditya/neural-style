@@ -1,3 +1,10 @@
+'''
+The paper by Gatys suggests that average pooling does better than max pooling
+We default to average pooling but provide max pooling as the other option
+We use the weights and biases of the already trained 19 layered VGGNet
+'''
+
+
 import numpy as np
 import tensorflow as tf
 import scipy.io
