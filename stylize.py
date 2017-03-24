@@ -1,3 +1,14 @@
+""" 
+A basic TensorFlow implementation of the paper 
+"A Neural Algorithm of Artistic Style" - Gatys et al.
+
+Based on the Tensorflow for Deep Learning Research course at Stanford.
+More details here: http://web.stanford.edu/class/cs20si/index.html
+"""
+
+
+
+
 import numpy as np
 import tensorflow as tf
 import download_vgg
