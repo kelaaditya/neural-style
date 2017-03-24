@@ -125,3 +125,6 @@ def stylize(content_image,
             
     final_image = np.clip(generated_image[0], 0, 255).astype('uint8')
     scipy.misc.imsave('./neural_styled/', final_image)
+    
+
+    
