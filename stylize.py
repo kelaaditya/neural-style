@@ -115,16 +115,18 @@ def stylize(content_image,
     
     initial_image = noisy_image(content_image, content_image_height, content_image_width, initial_image_noise_ratio)
     
-    for iterations in range(100):
-        with tf.Session() as sess:
-            sess.run(tf.global_variables_initializer())
-            sess.run(input_image.assign(initial_image))
+    
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        sess.run(input_image.assign(initial_image))
+        for iterations in range(1):
             sess.run(optimizer)
-            generated_image, total_loss_value = sess.run([initial_image, total_loss])
-            generated_image = generated_image + MEAN_PIXELS
-            
+        generated_image, total_loss_value = sess.run([input_image, total_loss])
+        
+    generated_image = generated_image + MEAN_PIXELS        
     final_image = np.clip(generated_image[0], 0, 255).astype('uint8')
-    scipy.misc.imsave('./neural_styled/', final_image)
+    scipy.misc.imsave('./neural_styled/stylized_koeln_cathedral.jpg', final_image)
+    print('Stylized image saved')
     
 
 if __name__ == "__main__":
@@ -140,5 +142,5 @@ if __name__ == "__main__":
             content_loss_weight=0.1, 
             style_loss_weight=1, 
             initial_image_noise_ratio=0.5, 
-            pooling_func='avg')    
+            pooling_func='avg')
     
