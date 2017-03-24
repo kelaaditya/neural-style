@@ -70,7 +70,7 @@ def total_style_loss(feature_layers, graph):
     return(total_loss)
 
 
-def combined_loss_function(graph, input_image, style_image, content_image, content_weight, style_weight):
+def combined_loss_function(graph, input_image, style_image, content_image, content_loss_weight, style_loss_weight):
     with tf.Session() as sess:
         sess.run(input_image.assign(content_image))
         a = sess.run(graph[CONTENT_LAYER])
@@ -81,15 +81,15 @@ def combined_loss_function(graph, input_image, style_image, content_image, conte
         A = sess.run([graph[i] for i in STYLE_LAYERS])
     style_loss_value = total_style_loss(A, graph)
     
-    total_loss_value = content_weight * content_loss_value + style_weight * style_loss
+    total_loss_value = content_loss_weight * content_loss_value + style_loss_weight * style_loss_value
     
     return(content_loss_value, style_loss_value, total_loss_value)
 
 
 def stylize(content_image, 
             style_image, 
-            content_weight, 
-            style_weight, 
+            content_loss_weight, 
+            style_loss_weight, 
             initial_image_noise_ratio, 
             pooling_func='avg'):
     
@@ -108,8 +108,8 @@ def stylize(content_image,
                                                                   input_image, 
                                                                   style_image, 
                                                                   content_image, 
-                                                                  content_weight, 
-                                                                  style_weight)
+                                                                  content_loss_weight, 
+                                                                  style_loss_weight)
     
     optimizer = tf.train.AdamOptimizer(1.0).minimize(total_loss)
     
@@ -127,6 +127,18 @@ def stylize(content_image,
     scipy.misc.imsave('./neural_styled/', final_image)
     
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    content_image = Image.open('./content/koeln_cathedral.jpg')
+    refit_content_image = ImageOps.fit(content_image, content_image.size, Image.ANTIALIAS)
+
+    #Note that we fit style image to the shape of the content image
+    style_image = Image.open('./style/escher_birds.jpg')
+    refit_style_image = ImageOps.fit(style_image, content_image.size, Image.ANTIALIAS)
     
+    stylize(refit_content_image, 
+            refit_style_image, 
+            content_loss_weight=0.1, 
+            style_loss_weight=1, 
+            initial_image_noise_ratio=0.5, 
+            pooling_func='avg')    
     
