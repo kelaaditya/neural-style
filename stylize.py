@@ -15,6 +15,7 @@ More details here: http://web.stanford.edu/class/cs20si/index.html
 
 import numpy as np
 import tensorflow as tf
+import scipy.misc
 import download_vgg
 import vgg
 
