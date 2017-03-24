@@ -1,3 +1,7 @@
+"""
+TODO: Argument Parser
+"""
+
 """ 
 A basic TensorFlow implementation of the paper 
 "A Neural Algorithm of Artistic Style" - Gatys et al.
