@@ -127,4 +127,6 @@ def stylize(content_image,
     scipy.misc.imsave('./neural_styled/', final_image)
     
 
+if __name__ == '__main__':
+    
     
