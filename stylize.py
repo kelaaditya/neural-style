@@ -20,3 +20,8 @@ MEAN_PIXELS = np.array([123.68, 116.779, 103.939]).reshape((1,1,1,3))
 
 #The deeper the layer, the higher the weight
 LAYER_WEIGHTS = (0.5, 1.0, 1.5, 3.0, 4.0)
+
+def noisy_image(given_image, image_height, image_width, noise_ratio=0.5):
+    image = np.random.uniform(-10, 10, (1, image_height, image_width, 3)).astype(np.float32)
+    noise_image = image * noise_ratio + given_image * (1 - noise_ratio)
+    return(noise_image)
