@@ -119,7 +119,7 @@ def stylize(content_image,
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         sess.run(input_image.assign(initial_image))
-        for iterations in range(1):
+        for iterations in range(300):
             sess.run(optimizer)
         generated_image, total_loss_value = sess.run([input_image, total_loss])
         
