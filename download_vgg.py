@@ -15,8 +15,10 @@ def download_vgg(link, file_name):
         if total_size > 0:
             percent_size = current_size / total_size * 100
             progress_string = '{0}, {1} out of {2}\n'.format(percent_size, current_size, total_size)
-            if percent_size % 10 == 0:
-                sys.stdout.write(progress_string)
+
+            #TODO: A better counter for printing
+            #if percent_size % 10 == 0:
+            #    sys.stdout.write(progress_string)
     
     if os.path.exists(file_name) and os.stat(file_name).st_size == 534904783:
         print('VGGNet ready')
