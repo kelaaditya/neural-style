@@ -3,6 +3,7 @@ A basic TensorFlow implementation of the paper [A Neural Algorithm of Artistic S
 by Gatys, Ecker and Bethge.  
 
 
+(In progress)
 
 
 
