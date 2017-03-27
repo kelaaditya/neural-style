@@ -22,3 +22,8 @@ The style image was a famous Escher graphic:
 `stylize.py` will download the VGG19 data and load the weights and biases. It imports from `download_vgg.py` to download the data and `vgg.py` to create a dictionary of each layer.
 
 The default number of iterations is 300.
+
+
+
+## References
+Based on the material from the Stanford course [TensorFlow for Deep Learning Research](http://web.stanford.edu/class/cs20si/)
