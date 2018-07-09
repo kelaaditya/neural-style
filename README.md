@@ -21,7 +21,6 @@ The style image is The Starry Night by Gogh:
 <img src="https://github.com/kelaaditya/neural-style/blob/master/style/starry_night.jpg" width="480" height="400" />
 
 ## Running
-(An argument parser is coming soon. Until then.. )  
 
 `python stylize.py`
 
