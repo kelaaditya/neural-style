@@ -155,3 +155,6 @@ def main():
             initial_image_noise_ratio=args.iinr,
             pooling_func=args.pool)
     
+
+if __name__=="__main__":
+    main()
