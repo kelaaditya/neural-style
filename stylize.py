@@ -1,7 +1,3 @@
-"""
-TODO: Argument Parser
-"""
-
 """ 
 A basic TensorFlow implementation of the paper 
 "A Neural Algorithm of Artistic Style" - Gatys et al.
@@ -12,14 +8,15 @@ More details here: http://web.stanford.edu/class/cs20si/index.html
 
 
 
-
+import argparse
 import numpy as np
 import tensorflow as tf
 import scipy.misc
+from PIL import Image, ImageOps
+
 import download_vgg
 import vgg
 
-from PIL import Image, ImageOps
 
 
 VGG_LINK = 'http://www.vlfeat.org/matconvnet/models/imagenet-vgg-verydeep-19.mat'
@@ -61,6 +58,7 @@ def style_loss(A, G):
         A: feature map of the real image
         G: feature map of the generated image
     '''
+
     total_filters = A.shape[-1]
     map_size = A.shape[1] * A.shape[2]
     G_A = _gram_matrix(A, total_filters, map_size)
@@ -132,9 +130,17 @@ def stylize(content_image,
     final_image = np.clip(generated_image[0], 0, 255).astype('uint8')
     scipy.misc.imsave('./neural_styled/stylized_koeln_cathedral.jpg', final_image)
     print('Stylized image saved')
-    
 
-if __name__ == "__main__":
+
+def main():
+    parser = argparse.ArgumentParser(description='Neural Style Transfer')
+    parser.add_argument('--clw',    type=int, default=0.1,      help='content loss weight')
+    parser.add_argument('--slw',    type=int, default=1,        help='style loss weight')
+    parser.add_argument('--iinr',   type=int, default=0.5,      help='initial image noise ratio')
+    parser.add_argument('--pool',   type=str, default='avg',    help='pooling function')
+
+    args = parser.parse_args()
+
     content_image = Image.open('./content/koeln_cathedral.jpg')
     refit_content_image = ImageOps.fit(content_image, content_image.size, Image.ANTIALIAS)
 
@@ -144,8 +150,8 @@ if __name__ == "__main__":
     
     stylize(refit_content_image, 
             refit_style_image, 
-            content_loss_weight=0.1, 
-            style_loss_weight=1, 
-            initial_image_noise_ratio=0.5, 
-            pooling_func='avg')
+            content_loss_weight=args.clw,
+            style_loss_weight=args.slw,
+            initial_image_noise_ratio=args.iinr,
+            pooling_func=args.pool)
     
