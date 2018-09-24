@@ -25,3 +25,9 @@ def download_vgg(link, file_name):
     else:
         print('Downloading VGG')
         urllib.request.urlretrieve(link, file_name, report_hook)
+
+
+if __name__=="__main__":
+    vgg_link = 'http://www.vlfeat.org/matconvnet/models/imagenet-vgg-verydeep-19.mat'
+    vgg_filename = 'imagenet-vgg-verydeep-19.mat'
+    download_vgg(vgg_link, vgg_filename)
